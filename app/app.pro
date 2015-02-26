@@ -8,12 +8,9 @@ TEMPLATE = app
 
 TARGET = mwfilesignature
 
-SOURCES += main.cpp \
-    filesignature.cpp
+SOURCES += main.cpp
 
-LIBS += -L../src -lmwfilesignature
+LIBS += -L../src -lfilesignature
 
 #HEADERS +=
 
-HEADERS += \
-    filesignature.h

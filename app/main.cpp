@@ -30,15 +30,8 @@ int main(int ac, char* av[])
   cout << endl;
 
 
+  mw::signature_set sig = mw::get_known_signatures();
 
-
-
-
-//    mw::KNOWN_IMG_SIGNATURES
-
-//    ADD_SIGNATURE((1,2,3,4), "JPGE");
-//    ADD_SIGNATURE((1,2,3,5), "JPFP");
-//    ADD_SIGNATURE((1,2,3),   "JPFP3");
 
 //    mw::Signature unknowns {{1,2,3,4}};
 

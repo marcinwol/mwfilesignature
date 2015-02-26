@@ -7,4 +7,11 @@ CONFIG   -= qt
 
 TEMPLATE = lib
 
-TARGET = mwfilesignature
+TARGET = filesignature
+
+
+HEADERS += \
+    filesignature.h
+
+SOURCES += \
+    filesignature.cpp
