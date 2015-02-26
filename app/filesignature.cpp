@@ -3,6 +3,7 @@
 namespace mw {
 
 
+
   Signature::Signature(const vector<unsigned char> & sig_, const string & img_type_):
       sig {sig_}, img_type {img_type_} {}
 
@@ -17,6 +18,16 @@ namespace mw {
   }
 
 
+  set<Signature> & get_known_signatures()
+  {
+      static set<Signature> SIGNATURE_SET_NAME;
+
+      ADD_SIGNATURE((1,2,3,4), "JPGE");
+      ADD_SIGNATURE((1,2,3,5), "JPFP");
+      ADD_SIGNATURE((1,2,3),   "JPFP3");
+
+      return known_signatures;
+  }
 
 
   vector<unsigned char>
