@@ -27,6 +27,9 @@ namespace mw {
 
   using namespace std;
 
+  struct Signature;
+
+  using signature_set = set<Signature>;
 
 
 
@@ -42,8 +45,6 @@ namespace mw {
 
   };
 
-  using signature_set = set<Signature>;
-
 
 
   /**
@@ -51,7 +52,8 @@ namespace mw {
    *        New signatures are compared against this set to determine the file type.
    * @return
    */
-  inline signature_set & get_known_signatures()
+  inline signature_set &
+  get_known_signatures()
   {
       static signature_set SIGNATURE_SET_NAME;
 
