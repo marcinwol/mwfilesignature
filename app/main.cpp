@@ -79,7 +79,12 @@ int main(int ac, char* av[])
 
       mw::Signature  sig_holder;
 
-      detect_type(a_path,  sig_holder);
+      bool type_found = detect_type(a_path,  sig_holder);
+
+      if (!type_found)
+      {
+        mw::is_ascii(a_path, sig_holder);
+      }
 
       cout << " type: " <<  sig_holder.img_type << endl;
 

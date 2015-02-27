@@ -66,6 +66,10 @@ namespace mw {
   vector<unsigned char>
   get_bin_signature(const string & in_file, int length = 132);
 
+  bool
+  is_ascii(const string & in_file, mw::Signature & sig_holder);
+
+
 
 
   /**
@@ -163,6 +167,8 @@ namespace mw {
                       0x41, 0x54, 0x2D, 0x66,
                       0x69, 0x6C, 0x65),      "MAT");
 
+
+      ADD_SIGNATURE((0xCE, 0xFA, 0xED, 0xFE), "MACH-O");
 
       ADD_SIGNATURE((0x0C, 0xED),             "MP");
 

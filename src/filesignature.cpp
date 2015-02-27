@@ -18,6 +18,27 @@ namespace mw {
   }
 
 
+  bool
+  is_ascii(const string & in_file, mw::Signature & sig_holder) {
+      int c;
+      std::ifstream ifs(in_file);
+
+      if (!ifs)
+      {
+        return false;
+      }
+
+      while((c = ifs.get()) != EOF && c <= 127);
+      if(c == EOF)
+      {
+
+          sig_holder = Signature {{}, "ASCII"};
+          return true;
+      }
+
+      return false;
+
+  }
 
 
   vector<unsigned char>
