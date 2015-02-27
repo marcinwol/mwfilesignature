@@ -2,7 +2,7 @@
 
 namespace mw {
 
-
+  Signature::Signature(): sig {}, img_type {"UNKNOWN"} {}
 
   Signature::Signature(const vector<unsigned char> & sig_, const string & img_type_):
       sig {sig_}, img_type {img_type_} {}

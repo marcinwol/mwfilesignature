@@ -15,9 +15,47 @@ using namespace std;
 int dir_tree_scan(const string & in_path, vector<string> & found_paths);
 
 
+bool detect_type(const string & a_path, mw::Signature & sig_holder)
+{
+    mw::signature_set known_sigs    = mw::get_known_signatures();
+    set<int> sig_lengths            = mw::get_known_signatures_lengths();
+    vector<unsigned char> signature = mw::get_bin_signature(a_path);
+
+
+    if (signature.empty())
+    {
+        return false;
+    }
+
+
+    for (set<int>::reverse_iterator rit = sig_lengths.rbegin();rit!=sig_lengths.rend(); ++rit)
+    {
+        int sig_length = *rit;
+
+        vector<unsigned char> v_partial(signature.begin(),
+                                        signature.begin() + sig_length);
+
+       // cout << sig_length <<": " << mw::get_signature_as_string(v_partial);
+
+      //  cout << endl;
+
+        mw::signature_set_iter si = known_sigs.find(v_partial);
+
+        if (si != known_sigs.end())
+        {
+            sig_holder = (*si);
+
+            return true;
+        }
+    }
+
+    return false;
+
+}
+
+
 int main(int ac, char* av[])
 {
-
 
  std::string in_folder = "/tmp";
 
@@ -29,67 +67,21 @@ int main(int ac, char* av[])
      return 1;
  }
 
-
-
-  mw::signature_set known_sigs = mw::get_known_signatures();
-
-  set<int> sig_lengths = mw::get_known_signatures_lengths();
-
-
   size_t file_no {1};
 
-  ofstream out_csv {"found_files.csv"};
+  //ofstream out_csv {"found_files.csv"};
 
 
   for (const string & a_path : found_files)
   {
 
-      cout << file_no << ": " << a_path << endl;
+      cout << file_no << ": " << a_path;
 
-      vector<unsigned char> signature = mw::get_bin_signature(a_path);
-      //cout << mw::get_signature_as_string(signature) << endl;
+      mw::Signature  sig_holder;
 
-      if (signature.empty())
-      {
-          continue;
-      }
+      detect_type(a_path,  sig_holder);
 
-      bool found_type {false};
-
-
-      //for (auto sig_length : sig_lengths)
-      for (set<int>::reverse_iterator rit = sig_lengths.rbegin();rit!=sig_lengths.rend(); ++rit)
-      {
-          int sig_length = *rit;
-
-          vector<unsigned char> v_partial(signature.begin(),
-                                          signature.begin() + sig_length);
-
-         // cout << sig_length <<": " << mw::get_signature_as_string(v_partial);
-
-        //  cout << endl;
-
-          mw::signature_set_iter si = known_sigs.find(v_partial);
-
-          if (si != known_sigs.end())
-          {
-              cout << "We found a match to: "
-                   << (*si).img_type
-                   << endl;
-              out_csv << "\"" <<a_path << "\""
-                      <<","
-                      << (*si).img_type <<endl;
-              found_type = true;
-              break;
-          }
-      }
-
-      if (found_type == false)
-      {
-          out_csv << "\"" <<a_path << "\""
-                  <<","
-                  << "UNKNOWN" << endl;
-      }
+      cout << " type: " <<  sig_holder.img_type << endl;
 
       ++file_no;
 

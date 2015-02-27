@@ -45,18 +45,31 @@ namespace mw {
      vector<unsigned char> sig;
      string img_type;
 
+     Signature();
+
      Signature(const vector<unsigned char> & sig_,
                const string & img_type_ = "");
 
-     bool operator < (const Signature & other) const;
+     bool operator <  (const Signature & other) const;
      bool operator == (const Signature & other) const;
 
   };
 
 
+  set<int>
+  get_known_signatures_lengths();
+
+  string
+  get_signature_as_string(const vector<unsigned char> & signature);
+
+
+  vector<unsigned char>
+  get_bin_signature(const string & in_file, int length = 132);
+
+
 
   /**
-   * @brief returns a reference to the set of signatures containing known signatures.
+   * @brief returns a reference to the multiset of signatures containing known signatures.
    *        New signatures are compared against this set to determine the file type.
    * @return
    */
@@ -165,17 +178,7 @@ namespace mw {
       return SIGNATURE_SET_NAME;
   }
 
-  set<int>
-  get_known_signatures_lengths();
 
-  string
-  get_signature_as_string(const vector<unsigned char> & signature);
-
-
-
-
-  vector<unsigned char>
-  get_bin_signature(const string & in_file, int length = 132);
 
 
  }
