@@ -57,7 +57,7 @@ bool detect_type(const string & a_path, mw::Signature & sig_holder)
 int main(int ac, char* av[])
 {
 
- std::string in_folder = "/tmp";
+ std::string in_folder = "/media/sf_D_DRIVE/dcm_for_tests";
 
  std::vector<string> found_files;
 
