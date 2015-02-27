@@ -34,9 +34,9 @@ namespace mw {
 
   struct Signature;
 
-  using signature_set = set<Signature>;
-  using signature_set_iter = set<Signature>::iterator;
-  using signature_set_riter = set<Signature>::reverse_iterator;
+  using signature_set       = multiset<Signature>;
+  using signature_set_iter  = multiset<Signature>::iterator;
+  using signature_set_riter = multiset<Signature>::reverse_iterator;
 
 
 

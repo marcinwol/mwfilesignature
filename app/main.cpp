@@ -19,7 +19,7 @@ int main(int ac, char* av[])
 {
 
 
- std::string in_folder = "/mnt/e/ImageDatabases";
+ std::string in_folder = "/tmp";
 
  std::vector<string> found_files;
 
