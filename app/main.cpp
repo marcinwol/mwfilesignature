@@ -19,17 +19,7 @@ int main(int ac, char* av[])
 {
 
 
-  vector<string> paths {
-      "/mnt/e/DCIM/20140907_165341.jpg",
-      "/mnt/e/ImageDatabases/Ida_Sep_2014/11_reproducibility_of_params/example_of_manual_selection/019_dhs1328345_0_im_2_i0000_0000b_DPI_177_R.xcf",
-      "/mnt/e/ImageDatabases/Ida_Sep_2014/04_front_tiffs_cropped/019_dhs1328345_0_im_2_i0000_0000b_DPI_177_R.tiff",
-      "/mnt/e/ImageDatabases/Ida_Sep_2014/02_dicoms_extracted/dcm/002_dhs1263510_0_im_2_i0000_0000b.dcm"
-  };
-
-
- std::string in_folder = "/tmp";
-
-
+ std::string in_folder = "/mnt/e/ImageDatabases";
 
  std::vector<string> found_files;
 
@@ -48,14 +38,12 @@ int main(int ac, char* av[])
 
   size_t file_no {1};
 
+  ofstream out_csv {"found_files.csv"};
+
 
   for (const string & a_path : found_files)
   {
 
-      if (a_path.find("NEF") == string::npos)
-      {
-      //    continue;
-      }
       cout << file_no << ": " << a_path << endl;
 
       vector<unsigned char> signature = mw::get_bin_signature(a_path);
@@ -65,6 +53,8 @@ int main(int ac, char* av[])
       {
           continue;
       }
+
+      bool found_type {false};
 
 
       //for (auto sig_length : sig_lengths)
@@ -86,8 +76,19 @@ int main(int ac, char* av[])
               cout << "We found a match to: "
                    << (*si).img_type
                    << endl;
+              out_csv << "\"" <<a_path << "\""
+                      <<","
+                      << (*si).img_type <<endl;
+              found_type = true;
               break;
           }
+      }
+
+      if (found_type == false)
+      {
+          out_csv << "\"" <<a_path << "\""
+                  <<","
+                  << "UNKNOWN" << endl;
       }
 
       ++file_no;
@@ -124,16 +125,6 @@ int dir_tree_scan(const string & in_path, vector<string> & found_paths)
 
     while ((node = fts_read(tree)))
     {
-/*        if (node->fts_level > 0 && node->fts_name[0] == '.')
-        {
-            //fts_set(tree, node, FTS_SKIP);
-
-        }
-
-
-
-        else*/
-
         if (node->fts_info & FTS_F)
         {
             if (i % 100 == 0)

@@ -59,7 +59,6 @@ namespace mw {
 
       return oss.str();
 
-
   }
 
 
