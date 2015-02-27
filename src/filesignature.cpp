@@ -29,7 +29,9 @@ namespace mw {
       ifstream ifs {in_file, ios_base::binary};
 
       if (!ifs)
-      {
+      {          
+          cerr << "Error : get_bin_signature: "
+               << strerror(errno) << endl;
           return signature;
       }
 

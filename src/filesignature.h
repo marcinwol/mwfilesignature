@@ -8,6 +8,9 @@
 #include <sstream>
 #include <iomanip>
 
+#include <string.h>
+#include <errno.h>
+
 
 #ifndef SIGNATURE_SET_NAME
     #define SIGNATURE_SET_NAME known_signatures
@@ -33,6 +36,7 @@ namespace mw {
 
   using signature_set = set<Signature>;
   using signature_set_iter = set<Signature>::iterator;
+  using signature_set_riter = set<Signature>::reverse_iterator;
 
 
 
