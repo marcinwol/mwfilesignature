@@ -42,4 +42,39 @@ namespace mw {
       return signature;
   }
 
+
+  string
+  get_signature_as_string(const vector<unsigned char> & signature)
+  {
+      ostringstream oss;
+
+      oss << setfill('0')  << uppercase;
+
+      for (const unsigned char & ps: signature)
+      {
+          oss << hex << setw(2) << static_cast<unsigned>(ps)<< " ";
+      }
+
+      return oss.str();
+
+
+  }
+
+
+  set<int>
+  get_known_signatures_lengths()
+  {
+      signature_set sig_set = get_known_signatures();
+
+      set<int> sig_lengths;
+
+      for (const Signature & sig: sig_set)
+      {
+            sig_lengths.insert(sig.sig.size());
+      }
+
+      return sig_lengths;
+
+  }
+
 }

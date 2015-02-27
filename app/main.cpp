@@ -12,41 +12,49 @@ int main(int ac, char* av[])
 {
 
 
-  string a_path {"/mnt/e/DCIM/20140907_165341.jpg"};
 
-    int length=2;
+  vector<string> paths {
+      "/mnt/e/DCIM/20140907_165341.jpg",
+      "/mnt/e/ImageDatabases/Ida_Sep_2014/11_reproducibility_of_params/example_of_manual_selection/019_dhs1328345_0_im_2_i0000_0000b_DPI_177_R.xcf",
+      "/mnt/e/ImageDatabases/Ida_Sep_2014/04_front_tiffs_cropped/019_dhs1328345_0_im_2_i0000_0000b_DPI_177_R.tiff",
+      "/mnt/e/ImageDatabases/Ida_Sep_2014/02_dicoms_extracted/dcm/002_dhs1263510_0_im_2_i0000_0000b.dcm"
+  };
 
-//  cin >> length;
 
-  vector<unsigned char> signature = mw::get_bin_signature(a_path, length);
 
-  vector<unsigned char> bytes {0xFF, 0xFF, 0xFD};
+  mw::signature_set known_sigs = mw::get_known_signatures();
 
-  for (const unsigned char & v: signature)
+  set<int> sig_lengths = mw::get_known_signatures_lengths();
+
+
+  for (const string & a_path : paths)
   {
-      cout << hex << setfill('0') << setw(2) << uppercase << static_cast<unsigned>(v) <<" ";
-  }
+      cout << a_path << endl;
+      vector<unsigned char> signature = mw::get_bin_signature(a_path);
+      cout << mw::get_signature_as_string(signature) << endl;
 
-  cout << endl;
+      for (auto sig_length : sig_lengths)
+      {
 
+          vector<unsigned char> v_partial(signature.begin(),
+                                          signature.begin() + sig_length);
 
-  mw::signature_set sig = mw::get_known_signatures();
+          cout << sig_length <<": " << mw::get_signature_as_string(v_partial);
 
+          cout << endl;
 
-//    mw::Signature unknowns {{1,2,3,4}};
+          mw::signature_set_iter si = known_sigs.find(v_partial);
 
-//    set<mw::Signature>::const_iterator item = sig_set.find(unknowns);
-//    if (item != sig_set.end())
-//    {
-//        cout << "found " << (*item).img_type << endl;
-//    }
+          if (si != known_sigs.end())
+          {
+              cout << "We found a match to: "
+                   << (*si).img_type
+                   << endl;
+              break;
+          }
 
-
-
-  //cout << (s1 < s2) << endl;
-//
-
-  cout << "Hello World!" << endl;
+      }
+    }
 
     return 0;
 }
