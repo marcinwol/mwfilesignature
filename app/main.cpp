@@ -58,6 +58,7 @@ int main(int ac, char* av[])
 {
 
  std::string in_folder = "/media/sf_D_DRIVE/dcm_for_tests";
+ //std::string in_folder = "/media/sf_D_DRIVE/Photos_2014";
 
  std::vector<string> found_files;
 
@@ -75,7 +76,7 @@ int main(int ac, char* av[])
   for (const string & a_path : found_files)
   {
 
-      cout << file_no << ": " << a_path;
+
 
       mw::Signature  sig_holder;
 
@@ -86,7 +87,16 @@ int main(int ac, char* av[])
         mw::is_ascii(a_path, sig_holder);
       }
 
-      cout << " type: " <<  sig_holder.img_type << endl;
+      if (sig_holder.is_image)
+      {
+        cout << file_no << ": " << a_path;
+        cout << " type: " <<  sig_holder.img_type;
+        cout << endl;
+      }
+
+
+
+
 
       ++file_no;
 

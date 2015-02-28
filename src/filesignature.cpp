@@ -2,10 +2,13 @@
 
 namespace mw {
 
-  Signature::Signature(): sig {}, img_type {"UNKNOWN"} {}
+  Signature::Signature():
+    sig {}, img_type {"UNKNOWN"}, is_image {false} {}
 
-  Signature::Signature(const vector<unsigned char> & sig_, const string & img_type_):
-      sig {sig_}, img_type {img_type_} {}
+  Signature::Signature(const vector<unsigned char> & sig_,
+                       const string & img_type_,
+                       bool is_image_):
+      sig {sig_}, img_type {img_type_}, is_image {is_image_} {}
 
   bool Signature::operator < (const Signature & other) const
   {
