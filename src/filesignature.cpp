@@ -21,6 +21,11 @@ namespace mw {
   }
 
 
+  Signature::operator bool () const
+  {
+    return img_type != "UNKNOWN" && is_image == true;
+  }
+
   bool
   is_ascii(const string & in_file, mw::Signature & sig_holder) {
       int c;

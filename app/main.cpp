@@ -87,7 +87,7 @@ int main(int ac, char* av[])
         mw::is_ascii(a_path, sig_holder);
       }
 
-      if (sig_holder.is_image)
+      if (sig_holder)
       {
         cout << file_no << ": " << a_path;
         cout << " type: " <<  sig_holder.img_type;

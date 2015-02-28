@@ -54,6 +54,7 @@ namespace mw {
 
      bool operator <  (const Signature & other) const;
      bool operator == (const Signature & other) const;
+     operator bool () const;
 
   };
 
