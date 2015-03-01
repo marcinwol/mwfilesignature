@@ -27,7 +27,7 @@ namespace mw {
   }
 
   bool
-  is_ascii(const string & in_file, mw::Signature & sig_holder) {
+  is_ascii(const string & in_file, vector<Signature> & sig_holder) {
       int c;
       std::ifstream ifs(in_file);
 
@@ -40,12 +40,77 @@ namespace mw {
       if(c == EOF)
       {
 
-          sig_holder = Signature {{}, "ASCII"};
+          sig_holder.push_back(Signature {{}, "ASCII"});
           return true;
       }
 
       return false;
 
+  }
+
+
+  bool detect_type(const string & a_path, vector<mw::Signature> & sig_holder)
+  {
+      mw::signature_set known_sigs    = mw::get_known_signatures();
+      set<int> sig_lengths            = mw::get_known_signatures_lengths();
+
+      vector<unsigned char> signature = mw::get_bin_signature(a_path);
+
+      if (signature.empty())
+      {
+          return false;
+      }
+
+
+      for (set<int>::reverse_iterator rit =  sig_lengths.rbegin();
+                                      rit != sig_lengths.rend();
+                                      ++rit)
+      {
+          int sig_length = *rit;
+
+          vector<unsigned char> v_partial(signature.begin(),
+                                          signature.begin() + sig_length);
+
+         // cout << sig_length <<": " << mw::get_signature_as_string(v_partial);
+         // cout << endl;
+
+
+          pair< mw::signature_set_iter,  mw::signature_set_iter> search_result
+                  = known_sigs.equal_range(v_partial);
+          for (mw::signature_set_iter i = search_result.first;
+                                      i != search_result.second;
+                                      ++i)
+          {
+              sig_holder.push_back(*i);
+          }
+
+      }
+
+      return !sig_holder.empty();
+  }
+
+  bool
+  is_image(const string & a_path, mw::Signature * sig_holder)
+  {
+      vector<mw::Signature>  found_sigs;
+
+      if (mw::detect_type(a_path, found_sigs))
+      {
+          for (const mw::Signature & found_sig : found_sigs)
+          {
+              // if signature is an image
+              if (found_sig)
+              {
+                if (sig_holder)
+                {
+                  *sig_holder = found_sig;
+                }
+                return true;
+              }
+          }
+      }
+
+      return false;
   }
 
 
@@ -91,20 +156,5 @@ namespace mw {
   }
 
 
-  set<int>
-  get_known_signatures_lengths()
-  {
-      signature_set sig_set = get_known_signatures();
-
-      set<int> sig_lengths;
-
-      for (const Signature & sig: sig_set)
-      {
-            sig_lengths.insert(sig.sig.size());
-      }
-
-      return sig_lengths;
-
-  }
 
 }
