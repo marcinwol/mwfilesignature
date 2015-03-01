@@ -14,33 +14,33 @@
 
 #define IMAGE_ENUM(DO) \
   DO(UNKOWN) \
-  DO(ASCII) \
-  DO(BMP) \
-  DO(CHM) \
-  DO(DB)  \
-  DO(DIB) \
-  DO(DLL) \
-  DO(DCM) \
-  DO(DOCX) \
-  DO(EXE) \
-  DO(GIF)  \
-  DO(HTML) \
-  DO(ICO) \
-  DO(ICNS) \
-  DO(JPEG)  \
-  DO(MAT) \
-  DO(MACHO) \
-  DO(MP) \
-  DO(NEF)  \
-  DO(PDF) \
-  DO(PNG) \
-  DO(PPTX) \
-  DO(PSD) \
-  DO(TIFF)  \
-  DO(XCF) \
-  DO(XLSX) \
-  DO(XML) \
-  DO(ZIP) \
+  DO(ASCII)  \
+  DO(BMP)    \
+  DO(CHM)    \
+  DO(DB)     \
+  DO(DIB)    \
+  DO(DLL)    \
+  DO(DCM)    \
+  DO(DOCX)   \
+  DO(EXE)    \
+  DO(GIF)    \
+  DO(HTML)   \
+  DO(ICO)    \
+  DO(ICNS)   \
+  DO(JPEG)   \
+  DO(MAT)    \
+  DO(MACHO)  \
+  DO(MP)     \
+  DO(NEF)    \
+  DO(PDF)    \
+  DO(PNG)    \
+  DO(PPTX)   \
+  DO(PSD)    \
+  DO(TIFF)   \
+  DO(XCF)    \
+  DO(XLSX)   \
+  DO(XML)    \
+  DO(ZIP)
 
 #define MAKE_ENUM(VAR) VAR,
 
