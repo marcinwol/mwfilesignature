@@ -1,9 +1,9 @@
 # mwfilesignature
 
-mwfilesignature is a fast and small (one header and source file) C++11 library for identifying image files based on their binary signature.
+mwfilesignature is a fast and small (one header and one source file) C++11 library for identifying image files based on their binary signature.
 
 ## File types
-The library recognized the following image files: DICOM, PNG, TIFF, JPEG, GIF, XCF, PSD, BMP, NEF, ICO. Few others, non-image types are also recognized (e.g. MAT, ZIP, XML, ASCII). However, non-image types are not a priority and their recoginition is limmited. 
+The library recognizes the following image types: DICOM, PNG, TIFF, JPEG, GIF, XCF, PSD, BMP, NEF, ICO. Few others, non-image types are also recognized (e.g. MAT, ZIP, XML, ASCII). However, non-image types are not a priority and their recoginition is rather limmited. 
 
 ## Example
 
@@ -29,7 +29,7 @@ int main()
     }
     else
     {
-        cout << "Image type: UNKNOWN" << endl;
+       cout << "Image type: UNKNOWN" << endl;
     }
 
     return 0;
