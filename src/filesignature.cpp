@@ -22,6 +22,8 @@ namespace mw {
       sig      = other.sig;
       img_type = other.img_type;
       is_image = other.is_image;
+
+      return *this;
   }
 
   bool Signature::operator < (const Signature & other) const
