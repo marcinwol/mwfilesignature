@@ -17,8 +17,7 @@ using namespace std;
 int main()
 {
 
-    //string in_path {"/a/path/to/some/file"};
-    string file_path {"/media/sf_D_DRIVE/dcm_for_tests/ida/037/DHS1275249/0/im_1/i0000_0000b.dcm"};
+    string in_path {"/a/path/to/some/file"};    
 
     // create an impty mw::Signature object
     mw::Signature empty_signature;
@@ -26,11 +25,11 @@ int main()
     // check if a given file is an image.
     if (mw::is_image(file_path, &empty_signature))
     {
-       cout << " type: " <<  empty_signature.img_type << endl;
+       cout << " Image type: " <<  empty_signature.img_type << endl;
     }
     else
     {
-        cout << "Non-recognized image type" << endl;
+        cout << "Image type: UNKNOWN" << endl;
     }
 
     return 0;
