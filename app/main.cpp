@@ -19,8 +19,8 @@ int main(int ac, char* av[])
 {
 
 
-    //std::string in_folder = "/media/sf_D_DRIVE/dcm_for_tests";
-    std::string in_folder = "/media/sf_D_DRIVE/Photos_2014";
+    std::string in_folder = "/media/sf_D_DRIVE/dcm_for_tests";
+    //std::string in_folder = "/media/sf_D_DRIVE/Photos_2014";
     // std::string in_folder = "/media/sf_D_DRIVE";
 
 
@@ -44,7 +44,7 @@ int main(int ac, char* av[])
 
       if (mw::is_image(a_path, &empty_signature))
       {
-         cout << " type: " <<  empty_signature.img_type;
+         cout << " type: " <<  empty_signature.str();
       }
 
       cout << endl;

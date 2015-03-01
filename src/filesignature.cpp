@@ -3,12 +3,26 @@
 namespace mw {
 
   Signature::Signature():
-    sig {}, img_type {"UNKNOWN"}, is_image {false} {}
+    sig {}, img_type {IMAGE_TYPES::UNKOWN}, is_image {false}
+  {}
 
   Signature::Signature(const vector<unsigned char> & sig_,
-                       const string & img_type_,
+                       const IMAGE_TYPES & img_type_,
                        bool is_image_):
-      sig {sig_}, img_type {img_type_}, is_image {is_image_} {}
+      sig {sig_}, img_type {img_type_}, is_image {is_image_}
+  {}
+
+
+  Signature::Signature( const Signature & other ):
+    sig {other.sig}, img_type {other.img_type}, is_image {other.is_image}
+  {}
+
+  Signature & Signature::operator=(const Signature & other)
+  {
+      sig      = other.sig;
+      img_type = other.img_type;
+      is_image = other.is_image;
+  }
 
   bool Signature::operator < (const Signature & other) const
   {
@@ -23,7 +37,17 @@ namespace mw {
 
   Signature::operator bool () const
   {
-    return img_type != "UNKNOWN" && is_image == true;
+    return img_type != IMAGE_TYPES::UNKOWN && is_image == true;
+  }
+
+  string Signature::str() const
+  {
+    return GET_TYPE_NAME(img_type);
+  }
+
+  int Signature::val() const
+  {
+    return GET_TYPE_VALUE(img_type);
   }
 
   bool
@@ -40,7 +64,7 @@ namespace mw {
       if(c == EOF)
       {
 
-          sig_holder.push_back(Signature {{}, "ASCII"});
+          sig_holder.push_back(Signature {{}, IMAGE_TYPES::ASCII});
           return true;
       }
 
