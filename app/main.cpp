@@ -29,7 +29,7 @@ int main(int ac, char* av[])
 
     if (dir_tree_scan(in_folder, found_files) == 1)
     {
-     cout << "some error occured";
+     perror("some error occured");
      return 1;
     }
 
